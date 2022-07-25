@@ -1,3 +1,43 @@
+<?php
+include 'dbconnect.php';
+
+// !Variable declaration 
+
+$email_err = $pwd_err = $success = $error = '';
+
+if (isset($_POST['submit'])) {
+
+    $fname = $_POST['fname'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $cpassword = $_POST['cpassword'];
+
+    $pass = password_hash($password, PASSWORD_BCRYPT);
+    $cpass = password_hash($cpassword, PASSWORD_BCRYPT);
+
+    //!Check if email already exists and password confirmation
+    $query = "SELECT * from register WHERE email = '$email' ";
+    $run = mysqli_query($conn, $query);
+    $row = mysqli_num_rows($run);
+
+    if ($row > 0) {
+        $email_err = "Email already exists";
+    } else if ($password != $cpassword) {
+        $pwd_err = "Password do not match";
+    } else {
+        $sql = "INSERT INTO register(fname,email,password,cpassword) VALUES('$fname','$email','$pass','$cpass')";
+        $run = mysqli_query($conn, $sql);
+
+        if ($run) {
+            $success = "Registered Successfully";
+        } else {
+            $error = "Unable to submit data.Please try again";
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,53 +81,65 @@
                 <div class="col-md-5 col-sm-5 col-l2">
 
                     <div class="text-center">
+
                         <button class="btn btn-info px-5 mx-2" onclick="register()">
                             Register
                         </button>
+
                         <button class="btn btn-info px-5 mx-2" onclick="login()">
                             Login
+
                         </button>
+                    
                     </div>
 
+
+                    <!-- //!Register Div -->
                     <div id="registerDiv" style="display: block">
                         <form action="" method="post">
                             <div class="form-group">
                                 <label for="fname" class="text-white">Full name</label>
-                                <input placeholder="Enter your name" class="form-control" type="text" name="fname">
+                                <input placeholder="Enter your name" class="form-control" type="text" name="fname" required="required">
                             </div>
 
                             <div class="form-group">
                                 <label for="email" class="text-white">E mail</label>
-                                <input placeholder="Enter your email" class="form-control" type="email" name="email">
+                                <span class="float-right text-white font-weight-bold"><?php echo $email_err; ?></span>
+                                <input placeholder="Enter your email" class="form-control" type="email" name="email" required="required">
                             </div>
 
                             <div class="form-group">
                                 <label for="password" class="text-white">Password</label>
-                                <input placeholder="Enter your password" class="form-control" type="password" name="password">
+                                <input placeholder="Enter your password" class="form-control" type="password" name="password" required="required" minlength="6">
                             </div>
 
                             <div class="form-group">
                                 <label for="cpassword" class="text-white">Confirm Password</label>
-                                <input placeholder="Re-enter your password" class="form-control" type="password" name="cpassword">
+                                <span class="float-right text-white font-weight-bold"><?php echo $pwd_err; ?></span>
+                                <input placeholder="Re-enter your password" class="form-control" type="password" name="cpassword" required="required" minlength="6">
                             </div>
 
                             <div class="text-center">
+                                <span class="float-right text-white font-weight-bold"><?php echo $success;
+                                                                                        echo $error; ?></span>
                                 <input type="submit" name="submit" value="Register" class="btn btn-info px-5">
                             </div>
                         </form>
                     </div>
 
+
+                    <!-- //!Login Div -->
                     <div id="loginDiv" style="display: none">
                         <form action="" method="post">
 
                             <div class="form-group">
                                 <label for="email" class="text-white">E mail</label>
-                                <input placeholder="Enter your email" class="form-control" type="email" name="email">
+                                <input placeholder="Enter your email" class="form-control" type="email" name="email" required="required">
                             </div>
 
                             <div class="form-group">
                                 <label for="password" class="text-white">Password</label>
-                                <input placeholder="Enter your password" class="form-control" type="password" name="password">
+                                <input placeholder="Enter your password" class="form-control" type="password" name="password" required="required" minlength="6">
                             </div>
 
                             <div class="text-center">
