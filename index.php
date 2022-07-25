@@ -5,7 +5,7 @@ include 'dbconnect.php';
 
 $email_err = $pwd_err = $success = $error = '';
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['registersubmit'])) {
 
     $fname = $_POST['fname'];
     $email = $_POST['email'];
@@ -63,6 +63,8 @@ if (isset($_POST['submit'])) {
     <section>
         <h2 class="text-center text-danger pt-5 pb-4 font-weight-bold">Student Management System</h2>
 
+        <h5 class="text-center font-weight-bold text-danger"><?php echo @$_GET['error']; ?></h5>
+
         <!-- //! Container starts here -->
         <div class="container bg-danger formsetting">
 
@@ -90,7 +92,7 @@ if (isset($_POST['submit'])) {
                             Login
 
                         </button>
-                    
+
                     </div>
 
 
@@ -110,19 +112,19 @@ if (isset($_POST['submit'])) {
 
                             <div class="form-group">
                                 <label for="password" class="text-white">Password</label>
-                                <input placeholder="Enter your password" class="form-control" type="password" name="password" required="required" minlength="6">
+                                <input placeholder="Enter your password" class="form-control" type="password" name="password" required="required" minlength="4">
                             </div>
 
                             <div class="form-group">
                                 <label for="cpassword" class="text-white">Confirm Password</label>
                                 <span class="float-right text-white font-weight-bold"><?php echo $pwd_err; ?></span>
-                                <input placeholder="Re-enter your password" class="form-control" type="password" name="cpassword" required="required" minlength="6">
+                                <input placeholder="Re-enter your password" class="form-control" type="password" name="cpassword" required="required" minlength="4">
                             </div>
 
                             <div class="text-center">
                                 <span class="float-right text-white font-weight-bold"><?php echo $success;
                                                                                         echo $error; ?></span>
-                                <input type="submit" name="submit" value="Register" class="btn btn-info px-5">
+                                <input type="submit" name="registersubmit" value="Register" class="btn btn-info px-5">
                             </div>
                         </form>
                     </div>
@@ -139,11 +141,11 @@ if (isset($_POST['submit'])) {
 
                             <div class="form-group">
                                 <label for="password" class="text-white">Password</label>
-                                <input placeholder="Enter your password" class="form-control" type="password" name="password" required="required" minlength="6">
+                                <input placeholder="Enter your password" class="form-control" type="password" name="password" required="required" minlength="4">
                             </div>
 
                             <div class="text-center">
-                                <input type="submit" name="submit" value="Login" class="btn btn-info px-5">
+                                <input type="submit" name="loginsubmit" value="Login" class="btn btn-info px-5">
                             </div>
 
                         </form>
@@ -160,3 +162,26 @@ if (isset($_POST['submit'])) {
 </body>
 
 </html>
+
+
+<?php
+
+if (isset($_POST['loginsubmit'])) {
+    $email = $_POST['email'];
+    $pwd = $_POST['password'];
+
+    $sql = "SELECT * from register WHERE email = '$email' ";
+    $run = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($run);
+
+    $pwd_fetch = $row['password'];
+    $pwd_decode = password_verify($pwd, $pwd_fetch);
+
+    if ($pwd_decode) {
+        echo "<script>window.open('main.php?success=Loggedin successfully', '_self')</script>";
+    } else {
+        echo "<script>window.open('index.php?error= Username or password is incorrect', '_self')</script>";
+    }
+}
+
+?>

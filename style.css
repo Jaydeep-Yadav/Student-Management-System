@@ -1,18 +1,18 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-    background: rgb(234, 234, 194);
+body {
+  background: rgb(234, 234, 194);
 }
 
-.formsetting{
-    padding: 10px;
-    border-radius: 15px;
+.formsetting {
+  padding: 10px;
+  border-radius: 15px;
 }
 
-img{
-    border-radius: 10px;
+img {
+  border-radius: 10px;
 }
