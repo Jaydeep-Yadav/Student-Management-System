@@ -34,6 +34,9 @@ if (isset($_POST['add'])) {
         $size_error = "Image size is larger.Image should be less than 2mb";
     } else {
 
+        if (!file_exists('student-images')) {
+            mkdir('student-images', 0777, true);
+        }
         move_uploaded_file($image_tmp, 'student-images/$image');
 
         $sql = "INSERT INTO student_detail(fname,lname,email,fathername,birthdate,mobile,gender,city,state,district,nation,photo) VALUES ('$fname','$lname','$email','$fathername','$birthdate','$mobile','$gender','$city','$state','$district','$nationality','$image'); ";
