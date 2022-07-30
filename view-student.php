@@ -85,8 +85,8 @@ include 'dbconnect.php'
             </button>
 
             <section id="main-form">
-                <h3 class="text-center text-success"><?php echo @$_GET['update_success']; ?></h3>
-                <h3 class="text-center text-danger"><?php echo @$_GET['update_error']; ?></h3>
+                <h3 class="text-center text-success font-weight-bold"><?php echo @$_GET['update_success'];echo @$_GET['delete_success']; ?></h3>
+                <h3 class="text-center text-danger font-weight-bold"><?php echo @$_GET['update_error']; ?></h3>
                 <h2 class="text-center text-danger pt-3 font-weight-bold">Student Management System</h2>
 
                 <div class="container bg-danger" id="formsetting">
