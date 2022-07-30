@@ -34,10 +34,12 @@ if (isset($_POST['add'])) {
         $size_error = "Image size is larger.Image should be less than 2mb";
     } else {
 
-        if (!file_exists('student-images')) {
-            mkdir('student-images', 0777, true);
+        if (!file_exists('student_images')) {
+            mkdir('student_images', 0777, true);
         }
-        move_uploaded_file($image_tmp, 'student-images/$image');
+        // move_uploaded_file($_FILES['image']['tmp_name'], __DIR__.'/../../uploads/'. $_FILES["image"]['name'])
+
+        move_uploaded_file($image_tmp, 'student_images/'.$image);
 
         $sql = "INSERT INTO student_detail(fname,lname,email,fathername,birthdate,mobile,gender,city,state,district,nation,photo) VALUES ('$fname','$lname','$email','$fathername','$birthdate','$mobile','$gender','$city','$state','$district','$nationality','$image'); ";
 
@@ -96,7 +98,7 @@ if (isset($_POST['add'])) {
 
             <ul class="list-group list-group-flush">
 
-                <a href="" class="list-group-item list-group-item-action">
+                <a href="main.php" class="list-group-item list-group-item-action">
                     <i class="fa fa-vcard-o"></i>Dashboard
                 </a>
 

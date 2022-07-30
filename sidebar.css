@@ -69,10 +69,6 @@
 }
 
 #formsetting{
-  border-radius: 30px;
+  border-radius: 15px;
   padding: 20px;
-}
-
-hr{
-  background: white !important;
 }
