@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include 'dbconnect.php';
 
 // !Variable declaration 
@@ -61,6 +63,9 @@ if (isset($_POST['registersubmit'])) {
 
 <body>
     <section>
+
+        <h3 class="text-center text-danger font-weight-bold"><?php echo @$_SESSION['login_first']; ?></h3>
+
         <h2 class="text-center text-danger pt-5 pb-4 font-weight-bold">Student Management System</h2>
 
         <h5 class="text-center font-weight-bold text-danger"><?php echo @$_GET['error']; ?></h5>
@@ -166,8 +171,11 @@ if (isset($_POST['registersubmit'])) {
 
 <?php
 
+$_SESSION['email'] = null;
+
 if (isset($_POST['loginsubmit'])) {
-    $email = $_POST['email'];
+
+    $email = $_SESSION['email'] = $_POST['email'];
     $pwd = $_POST['password'];
 
     $sql = "SELECT * from register WHERE email = '$email' ";
@@ -178,10 +186,16 @@ if (isset($_POST['loginsubmit'])) {
     $pwd_decode = password_verify($pwd, $pwd_fetch);
 
     if ($pwd_decode) {
-        echo "<script>window.open('main.php?success=Loggedin successfully', '_self')</script>";
+        echo "<script>window.open('main.php', '_self')</script>";
     } else {
         echo "<script>window.open('index.php?error= Username or password is incorrect', '_self')</script>";
     }
 }
+
+//! For auto Login
+if ($_SESSION['email']) {
+    header('location:main.php');
+}
+
 
 ?>

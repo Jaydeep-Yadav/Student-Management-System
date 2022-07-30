@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+
+if (!$_SESSION['email']) {
+    $_SESSION['login_first'] = "Please login first";
+    header('location:index.php');
+}
+
 include 'dbconnect.php';
 
 $type_error = $size_error = '';
@@ -31,11 +39,11 @@ if (isset($_POST['update'])) {
     //! To delete image from folder
     $image_query = " SELECT * FROM student_detail WHERE id = '$edit_student_id' ";
     $run = mysqli_query($conn, $image_query);
-    while($row = mysqli_fetch_assoc($run)){
+    while ($row = mysqli_fetch_assoc($run)) {
         $img = $row['photo'];
     }
 
-    unlink('student_images/'.$img);
+    unlink('student_images/' . $img);
 
     if (!$image_type == 'image/jpg' or !$image_type == 'image/png') {
         $type_error = "Invalid Image Format";
@@ -136,7 +144,7 @@ if (isset($_POST['update'])) {
                     <i class="fa fa-pencil"></i>Edit Student Detail
                 </a>
 
-                <a href="" class="list-group-item list-group-item-action">
+                <a href="logout.php" class="list-group-item list-group-item-action">
                     <i class="fa fa-sign-out"></i>Logout
                 </a>
 
@@ -258,7 +266,8 @@ if (isset($_POST['update'])) {
                                 <div class="text-center">
                                     <input type="submit" name="update" value="Update Details" class="btn btn-success px-5 mt-2 text-center">
                                 </div>
-                                <span style="display:block" class="text-center text-sucess text-white font-weight-bold"><?php echo $type_error;echo $size_error; ?></span>
+                                <span style="display:block" class="text-center text-sucess text-white font-weight-bold"><?php echo $type_error;
+                                                                                                                        echo $size_error; ?></span>
 
                                     </div> <!-- //! Right side form  ends-->
 

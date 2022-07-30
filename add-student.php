@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+
+if (!$_SESSION['email']) {
+    $_SESSION['login_first'] = "Please login first";
+    header('location:index.php');
+}
+
 include 'dbconnect.php';
 
 $type_error = $size_error = $success = $error = '';
@@ -39,7 +47,7 @@ if (isset($_POST['add'])) {
         }
         // move_uploaded_file($_FILES['image']['tmp_name'], __DIR__.'/../../uploads/'. $_FILES["image"]['name'])
 
-        move_uploaded_file($image_tmp, 'student_images/'.$image);
+        move_uploaded_file($image_tmp, 'student_images/' . $image);
 
         $sql = "INSERT INTO student_detail(fname,lname,email,fathername,birthdate,mobile,gender,city,state,district,nation,photo) VALUES ('$fname','$lname','$email','$fathername','$birthdate','$mobile','$gender','$city','$state','$district','$nationality','$image'); ";
 
@@ -126,7 +134,7 @@ if (isset($_POST['add'])) {
                     <i class="fa fa-pencil"></i>Edit Student Detail
                 </a>
 
-                <a href="" class="list-group-item list-group-item-action">
+                <a href="logout.php" class="list-group-item list-group-item-action">
                     <i class="fa fa-sign-out"></i>Logout
                 </a>
 
@@ -229,12 +237,12 @@ if (isset($_POST['add'])) {
                                 </div>
 
                                 <div class="text-center">
-                                <input type="submit" name="add" value="Add Details" class="btn btn-success px-5 mt-2 text-center">
+                                    <input type="submit" name="add" value="Add Details" class="btn btn-success px-5 mt-2 text-center">
                                 </div>
                                 <span style="display:block" class="text-center text-sucess text-white font-weight-bold"><?php echo $success;
-                                                                                                    echo $error;
-                                                                                                    echo $type_error;
-                                                                                                    echo $size_error; ?></span>
+                                                                                                                        echo $error;
+                                                                                                                        echo $type_error;
+                                                                                                                        echo $size_error; ?></span>
                             </div> <!-- //! Right side form  ends-->
 
 

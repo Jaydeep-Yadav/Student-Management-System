@@ -1,4 +1,12 @@
 <?php
+
+session_start();
+
+if (!$_SESSION['email']) {
+    $_SESSION['login_first'] = "Please login first";
+    header('location:index.php');
+}
+
 include 'dbconnect.php'
 ?>
 
@@ -71,7 +79,7 @@ include 'dbconnect.php'
                     <i class="fa fa-pencil"></i>Edit Student Detail
                 </a>
 
-                <a href="" class="list-group-item list-group-item-action">
+                <a href="logout.php" class="list-group-item list-group-item-action">
                     <i class="fa fa-sign-out"></i>Logout
                 </a>
 
@@ -85,7 +93,8 @@ include 'dbconnect.php'
             </button>
 
             <section id="main-form">
-                <h3 class="text-center text-success font-weight-bold"><?php echo @$_GET['update_success'];echo @$_GET['delete_success']; ?></h3>
+                <h3 class="text-center text-success font-weight-bold"><?php echo @$_GET['update_success'];
+                                                                        echo @$_GET['delete_success']; ?></h3>
                 <h3 class="text-center text-danger font-weight-bold"><?php echo @$_GET['update_error']; ?></h3>
                 <h2 class="text-center text-danger pt-3 font-weight-bold">Student Management System</h2>
 
@@ -143,8 +152,8 @@ include 'dbconnect.php'
                                                     <img src="student_images/<?php echo $row['photo']; ?>" width="50" height="60">
                                                 </a></td>
                                             <td>
-                                            <a style="color:white; text-decoration:none" href="edit-student-detail.php?edit_student=<?php echo $row['id']; ?>">Edit</a> |
-                                            <a style="color:white; text-decoration:none" href="delete-student-detail.php?delete_student=<?php echo $row['id']; ?>">Delete</a>
+                                                <a style="color:white; text-decoration:none" href="edit-student-detail.php?edit_student=<?php echo $row['id']; ?>">Edit</a> |
+                                                <a style="color:white; text-decoration:none" href="delete-student-detail.php?delete_student=<?php echo $row['id']; ?>">Delete</a>
                                             </td>
 
                                         </tr>

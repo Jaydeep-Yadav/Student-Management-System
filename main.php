@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+if( !$_SESSION['email']){
+    $_SESSION['login_first'] = "Please login first"; 
+    header('location:index.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,7 +77,7 @@
                     <i class="fa fa-pencil"></i>Edit Student Detail
                 </a>
 
-                <a href="" class="list-group-item list-group-item-action">
+                <a href="logout.php" class="list-group-item list-group-item-action">
                     <i class="fa fa-sign-out"></i>Logout
                 </a>
 
