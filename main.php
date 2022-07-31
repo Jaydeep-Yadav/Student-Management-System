@@ -62,7 +62,7 @@ if( !$_SESSION['email']){
                 </a>
 
                 <a href="edit-teacher.php" class="list-group-item list-group-item-action">
-                    <i class="fa fa-pencil"></i>Edit Teacher Detail
+                    <i class="fa fa-search"></i>Search Teacher Detail
                 </a>
 
                 <a href="add-student.php" class="list-group-item list-group-item-action">
@@ -73,8 +73,8 @@ if( !$_SESSION['email']){
                     <i class="fa fa-eye"></i>View Student Detail
                 </a>
 
-                <a href="edit-student.php" class="list-group-item list-group-item-action">
-                    <i class="fa fa-pencil"></i>Edit Student Detail
+                <a href="search-student.php" class="list-group-item list-group-item-action">
+                    <i class="fa fa-search"></i>Search Student Detail
                 </a>
 
                 <a href="logout.php" class="list-group-item list-group-item-action">
@@ -116,9 +116,9 @@ if( !$_SESSION['email']){
                         </div>
 
                         <div class="col-md-4 col-sm-4 col-12 m-auto icon">
-                            <a href="edit-student.php" class="text-white text-center">
-                                <i class="fa fa-pencil"></i>
-                                <h3>Edit Student Detail</h3>
+                            <a href="search-student.php" class="text-white text-center">
+                                <i class="fa fa-search"></i>
+                                <h3>Search Student Detail</h3>
                             </a>
                         </div>
 
@@ -143,9 +143,9 @@ if( !$_SESSION['email']){
                         </div>
 
                         <div class="col-md-4 col-sm-4 col-12 m-auto icon">
-                            <a href="edit-teacher.php" class="text-white text-center">
-                                <i class="fa fa-pencil"></i>
-                                <h3>Edit Teacher Detail</h3>
+                            <a href="search-teacher.php" class="text-white text-center">
+                                <i class="fa fa-search"></i>
+                                <h3>Search Teacher Detail</h3>
                             </a>
                         </div>
 

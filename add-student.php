@@ -118,8 +118,8 @@ if (isset($_POST['add'])) {
                     <i class="fa fa-eye"></i>View Teacher Detail
                 </a>
 
-                <a href="edit-teacher.php" class="list-group-item list-group-item-action">
-                    <i class="fa fa-pencil"></i>Edit Teacher Detail
+                <a href="search-teacher.php" class="list-group-item list-group-item-action">
+                    <i class="fa fa-search"></i>Search Teacher Detail
                 </a>
 
                 <a href="add-student.php" class="list-group-item list-group-item-action">
@@ -130,8 +130,8 @@ if (isset($_POST['add'])) {
                     <i class="fa fa-eye"></i>View Student Detail
                 </a>
 
-                <a href="edit-student.php" class="list-group-item list-group-item-action">
-                    <i class="fa fa-pencil"></i>Edit Student Detail
+                <a href="search-student.php" class="list-group-item list-group-item-action">
+                    <i class="fa fa-search"></i>Search Student Detail
                 </a>
 
                 <a href="logout.php" class="list-group-item list-group-item-action">
@@ -149,8 +149,6 @@ if (isset($_POST['add'])) {
             </button>
 
             <section id="main-form">
-
-
 
                 <h2 class="text-center text-danger pt-3 font-weight-bold">Student Management System</h2>
 

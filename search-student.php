@@ -1,13 +1,18 @@
 <?php
 
 session_start();
-
 if (!$_SESSION['email']) {
     $_SESSION['login_first'] = "Please login first";
     header('location:index.php');
 }
 
-include 'dbconnect.php'
+include 'dbconnect.php';
+$studentName = '';
+
+if (isset($_POST['search'])) {
+    $studentName = mysqli_real_escape_string($conn, $_POST['studentName']);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +32,7 @@ include 'dbconnect.php'
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="view-student.css">
+    <link rel="stylesheet" href="sidebar.css">
 
     <!-- //!Button Logic -->
     <script>
@@ -63,7 +68,7 @@ include 'dbconnect.php'
                     <i class="fa fa-eye"></i>View Teacher Detail
                 </a>
 
-                <a href="search-teacher.php" class="list-group-item list-group-item-action">
+                <a href="edit-teacher.php" class="list-group-item list-group-item-action">
                     <i class="fa fa-search"></i>Search Teacher Detail
                 </a>
 
@@ -93,16 +98,25 @@ include 'dbconnect.php'
             </button>
 
             <section id="main-form">
-                <h3 class="text-center text-success font-weight-bold"><?php echo @$_GET['update_success'];
-                                                                        echo @$_GET['delete_success']; ?></h3>
-                <h3 class="text-center text-danger font-weight-bold"><?php echo @$_GET['update_error']; ?></h3>
+            <h3 class="text-center text-success font-weight-bold"><?php echo @$_GET['delete_success']; ?></h3>
                 <h2 class="text-center text-danger pt-3 font-weight-bold">Student Management System</h2>
 
                 <div class="container bg-danger" id="formsetting">
 
                     <h3 class="text-center text-white pb-4 pt-2 font-weight-bold">
-                        View Student Detail
+                        Search Students
                     </h3>
+
+                    <form method="POST" action="">
+
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="studentName" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <input class="btn btn-search" name="search" type="submit" value="Search"><i class="fa fa-search fa-fw"></i></input>
+                            </span>
+                        </div>
+
+                    </form>
 
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-12">
@@ -127,12 +141,19 @@ include 'dbconnect.php'
                                 </thead>
 
                                 <?php
-                                $sql = "SELECT * FROM student_detail";
+                                
+                                // if($studentName==''){
+                                //     die('<h3 class="text-center text-sucess bg-success text-white font-weight-bold">Search for Students</h3>');
+                                // }
+
+                                $sql = "SELECT * FROM student_detail WHERE fname LIKE '%$studentName%' OR lname LIKE '%$studentName%'";
                                 $run = mysqli_query($conn, $sql);
+
+                                $usersFoundFlag = true;
 
                                 $i = 1; //! For serial number
                                 while ($row = mysqli_fetch_assoc($run)) {
-
+                                    $usersFoundFlag= false;
                                 ?>
                                     <tbody>
                                         <tr>
@@ -159,10 +180,22 @@ include 'dbconnect.php'
                                         </tr>
                                     </tbody>
 
-                                <?php } ?>
+                                <?php 
+                                } 
+
+                                ?>
+
+                                
                             </table>
+
+                            <?php 
+                            if($usersFoundFlag){
+                                die('<h3 class="text-center text-sucess bg-success text-white font-weight-bold">No Students Found</h3>');
+                            }
+                        ?>
                         </div>
                     </div>
+
 
 
                 </div>
